@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(33, 33, 33);
+    color: rgb(28, 139, 69);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 40px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+.list {
+    display: flex;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    
+    
+}
+
+ul {
+    list-style-position: inside;
+    padding: 0;
+    margin-top: 0;
+}
+
+#leftList {
+    flex: 1;
+        
+}
+
+#rightList {
+    flex: 1;
+    
+}
+
+img {
+    height: 200px;
+}    

@@ -16,7 +16,9 @@ h2 {
 }
 
 .list {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 30%;
     margin-left: 30vw;
     margin-right: 30vw;
     
@@ -29,50 +31,36 @@ ul {
     margin-top: 0;
 }
 
-.leftList {
-    flex: 1;
-    margin-right: 10%;   
+.list li:nth-child(odd) {
+    transform: translateX(-100px);
 }
 
-.leftList li:nth-child(1) {
-    animation: slide-in-left 1s ease-out 0ms 1 normal none;
-}
-.leftList li:nth-child(2) {
-    animation: slide-in-left 1s ease-out 100ms 1 normal none;
-}
-.leftList li:nth-child(3) {
-    animation: slide-in-left 1s ease-out 200ms 1 normal none;
-}
-@keyframes slide-in-left {
-    from {
-        transform: translateX(-100px);
-        opacity: 0%;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 100%;
-    }
+.list li:nth-child(even) {
+    transform: translateX(100px);
 }
 
-.rightList {
-    flex: 1;
-    margin-left: 10%;
+.list li {
+    animation-name: slide-in;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    transform: translateX(0);
+    opacity: 0;
 }
 
-.rightList li:nth-child(1) {
-    animation: slide-in-right 1s ease-out 0ms 1 normal none;
+.list li:nth-child(-n+6) {
+    animation-delay: 200ms;
 }
-.rightList li:nth-child(2) {
-    animation: slide-in-right 1s ease-out 100ms 1 normal none;
+
+.list li:nth-child(-n+4) {
+    animation-delay: 100ms;
 }
-.rightList li:nth-child(3) {
-    animation: slide-in-right 1s ease-out 200ms 1 normal none;
+
+.list li:nth-child(-n+2) {
+    animation-delay: 0ms;
 }
-@keyframes slide-in-right {
-    from {
-        transform: translateX(100px);
-        opacity: 0%;
-    }
+
+@keyframes slide-in {
     to {
         transform: translateX(0);
         opacity: 100%;
@@ -82,3 +70,41 @@ ul {
 img {
     height: 200px;
 }    
+
+.imgCarousel {
+    position: relative;
+    /* height: 200px; */
+    margin-top: 150px;
+    /* margin-right: 25vw; */
+    /* overflow: hidden; */
+}
+
+.mainImg {
+    scale: 150%;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50px;    
+}
+
+button:active {
+    scale: 90%;
+}
+
+.shiftLeft {
+    left: 35%;
+    background-image: url(images/leftbutton.png);
+}
+
+.shiftRight {
+    right: 35%;
+    background-image: url(images/rightbutton.png);
+
+}
+

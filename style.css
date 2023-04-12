@@ -73,10 +73,25 @@ img {
 
 .imgCarousel {
     position: relative;
-    /* height: 200px; */
+    display: flex;
+    justify-content: center;
     margin-top: 150px;
-    /* margin-right: 25vw; */
-    /* overflow: hidden; */
+
+}
+
+.mainImg, .leftImg, .rightImg, .hiddenImg {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    
+}
+
+.leftImg {
+    transform: translateX(-200px);
+}
+
+.rightImg {
+    transform: translateX(200px);
 }
 
 .mainImg {
@@ -99,12 +114,13 @@ button:active {
 
 .shiftLeft {
     left: 35%;
-    background-image: url(images/leftbutton.png);
+    background-image: url(images/leftbutton.svg);
 }
 
 .shiftRight {
     right: 35%;
-    background-image: url(images/rightbutton.png);
+    background-image: url(images/leftbutton.svg);
+    rotate: 180deg;
 
 }
 

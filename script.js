@@ -8,60 +8,58 @@ let imgArray = [
     'images/cat7.png',
 ];
 let container = document.querySelector('.imgCarousel');
-let lastIndex = imgArray.length-1;
-let index = [lastIndex, 0, 1];
+let index = [imgArray.length-1, 0, 1, 2];
 
-function createButton(buttonName) {
+function properIndex() {
+    for (i = 0; i < index.length; i++) {
+        if (index[i] >= imgArray.length) 
+            index[i] = index[i] % imgArray.length
+        else if (index[i] < 0) 
+            index[i] = (imgArray.length + index[i]) % imgArray.length;
+    }
+
+};
+
+function shiftImages(isForward) {
+    for (i = 0; i < index.length; i++) {
+        index[i] = isForward ? (index[i] + 1) : (index[i] - 1);
+    }
+    properIndex();
+    updateSrc();
+    console.log(index);
+}
+
+function createButton(buttonName, isForward) {
     let newButton = document.createElement('button');
-    newButton.setAttribute('type', 'button');
-    newButton.setAttribute('class', buttonName);
-    newButton.setAttribute('onclick', `${buttonName}()`);
+    newButton.className = buttonName;
+    newButton.addEventListener('click', function() {shiftImages(isForward);});
     container.appendChild(newButton); 
 }
 
 function createImageBox(boxclass) {
     let box = document.createElement('img');
     box.setAttribute('class', boxclass);
-    box.setAttribute('width', '200px');
-    box.setAttribute('height', '200px');
     container.appendChild(box);
 }
 
-function addSrc() {
-    document.querySelector('.leftImg').setAttribute('src', imgArray[index[0]]);
-    document.querySelector('.mainImg').setAttribute('src', imgArray[index[1]]);
-    document.querySelector('.rightImg').setAttribute('src', imgArray[index[2]]);
-}
-function insertPictures() {
-    createImageBox('leftImg');
-    createImageBox('mainImg');
-    createImageBox('rightImg');
-    addSrc();
-    
-}
-
-function shiftLeft() {
-    for (i=0; i<index.length; i++) {
-        index[i] -= 1;
-        if (index[i] < 0) index[i] = lastIndex;
-    }
-    addSrc();
-}
-function shiftRight() {
-    for (i=0; i<index.length; i++) {
-        index[i] += 1;
-        if (index[i] > lastIndex) index[i] = 0;
-    }
-    addSrc();
+function updateSrc() {
+    document.querySelector('.hiddenImg').setAttribute('src', imgArray[index[0]]);
+    document.querySelector('.leftImg').setAttribute('src', imgArray[index[1]]);
+    document.querySelector('.mainImg').setAttribute('src', imgArray[index[2]]);
+    document.querySelector('.rightImg').setAttribute('src', imgArray[index[3]]);
 }
 
 function createCarousel() {
     
-    insertPictures();
+    createImageBox('hiddenImg');
+    createImageBox('leftImg');
+    createImageBox('rightImg');
+    createImageBox('mainImg');
+    updateSrc();
 
-    createButton('shiftLeft');
+    createButton('shiftLeft', 0);
 
-    createButton('shiftRight');
+    createButton('shiftRight', 1);
 
 }
 

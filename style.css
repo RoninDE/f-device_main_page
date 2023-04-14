@@ -88,14 +88,135 @@ img {
 
 .leftImg {
     transform: translateX(-200px);
+    z-index: 2;
 }
 
 .rightImg {
     transform: translateX(200px);
+    z-index: 2;
 }
 
 .mainImg {
     scale: 150%;
+    z-index: 3;
+}
+
+.hiddenImg {
+    scale: 50%;
+    z-index: 1;
+}
+
+.hiddenImg-animate-forward {
+    animation-name: slide-hidden-forward;
+    animation-duration: 500ms;
+    
+}
+
+.hiddenImg-animate-backward {
+    animation-name: slide-hidden-backward;
+    animation-duration: 500ms;
+    
+}
+
+.mainImg-animate-forward {
+    animation-name: slide-main-forward;
+    animation-duration: 500ms;
+    
+}
+
+.mainImg-animate-backward {
+    animation-name: slide-main-backward;
+    animation-duration: 500ms;
+    
+}
+
+.leftImg-animate-forward {
+    animation-name: slide-left-forward;
+    animation-duration: 500ms;
+    
+}
+
+.leftImg-animate-backward {
+    animation-name: slide-left-backward;
+    animation-duration: 500ms;
+    
+}
+
+.rightImg-animate-forward {
+    animation-name: slide-right-forward;
+    animation-duration: 500ms;
+    
+}
+
+.rightImg-animate-backward {
+    animation-name: slide-right-backward;
+    animation-duration: 500ms;
+    
+}
+
+@keyframes slide-hidden-forward {
+    to {
+        transform: translateX(200px);
+        scale: 100%;
+        z-index: 2
+
+    }
+}
+
+@keyframes slide-hidden-backward {
+    to {
+        transform: translateX(-200px);
+        scale: 100%;
+        z-index: 2
+    }
+}
+
+@keyframes slide-main-forward {
+    to {
+        transform: translateX(-200px);
+        scale: 100%;
+        z-index: 2
+    }
+}
+
+@keyframes slide-main-backward {
+    to {
+        transform: translateX(200px);
+        scale: 100%;
+        z-index: 2
+    }
+}
+
+@keyframes slide-left-forward {
+    to {
+        transform: translateX(0px);
+        scale: 50%;
+        z-index: 1
+    }
+}
+
+@keyframes slide-left-backward {
+    to {
+        transform: translateX(0px);
+        scale: 150%;
+        z-index: 3
+    }
+}
+
+@keyframes slide-right-forward {
+    to {
+        transform: translateX(0px);
+        scale: 150%;
+        z-index: 3
+    }
+}
+
+@keyframes slide-right-backward {
+    to {
+        transform: translateX(0px);
+        scale: 50%;
+        z-index: 1
+    }
 }
 
 button {
@@ -105,7 +226,8 @@ button {
     width: 100px;
     height: 100px;
     position: absolute;
-    top: 50px;    
+    top: 50px;
+    z-index: 4;    
 }
 
 button:active {

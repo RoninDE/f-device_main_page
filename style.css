@@ -89,76 +89,42 @@ img {
 .leftImg {
     transform: translateX(-200px);
     z-index: 2;
+    animation-name: slide-left-forward, slide-left-backward;
 }
 
 .rightImg {
     transform: translateX(200px);
     z-index: 2;
+    animation-name: slide-right-forward, slide-right-backward;
 }
 
 .mainImg {
     scale: 150%;
     z-index: 3;
+    animation-name: slide-main-forward, slide-main-backward;
 }
 
 .hiddenImg {
     scale: 50%;
     z-index: 1;
+    animation-name: slide-hidden-forward, slide-hidden-backward;
 }
 
-.hiddenImg-animate-forward {
-    animation-name: slide-hidden-forward;
+.hiddenImg, .hiddenImg, 
+.mainImg, .mainImg,
+.rightImg, .rightImg,
+.leftImg, .leftImg {
     animation-duration: 500ms;
-    
+    animation-iteration-count: infinite;
+    animation-play-state: paused, paused;
 }
 
-.hiddenImg-animate-backward {
-    animation-name: slide-hidden-backward;
-    animation-duration: 500ms;
-    
-}
 
-.mainImg-animate-forward {
-    animation-name: slide-main-forward;
-    animation-duration: 500ms;
-    
-}
-
-.mainImg-animate-backward {
-    animation-name: slide-main-backward;
-    animation-duration: 500ms;
-    
-}
-
-.leftImg-animate-forward {
-    animation-name: slide-left-forward;
-    animation-duration: 500ms;
-    
-}
-
-.leftImg-animate-backward {
-    animation-name: slide-left-backward;
-    animation-duration: 500ms;
-    
-}
-
-.rightImg-animate-forward {
-    animation-name: slide-right-forward;
-    animation-duration: 500ms;
-    
-}
-
-.rightImg-animate-backward {
-    animation-name: slide-right-backward;
-    animation-duration: 500ms;
-    
-}
 
 @keyframes slide-hidden-forward {
     to {
         transform: translateX(200px);
         scale: 100%;
-        z-index: 2
 
     }
 }
@@ -167,7 +133,6 @@ img {
     to {
         transform: translateX(-200px);
         scale: 100%;
-        z-index: 2
     }
 }
 
@@ -175,7 +140,6 @@ img {
     to {
         transform: translateX(-200px);
         scale: 100%;
-        z-index: 2
     }
 }
 
@@ -183,7 +147,6 @@ img {
     to {
         transform: translateX(200px);
         scale: 100%;
-        z-index: 2
     }
 }
 
@@ -191,7 +154,6 @@ img {
     to {
         transform: translateX(0px);
         scale: 50%;
-        z-index: 1
     }
 }
 
@@ -199,7 +161,6 @@ img {
     to {
         transform: translateX(0px);
         scale: 150%;
-        z-index: 3
     }
 }
 
@@ -207,7 +168,6 @@ img {
     to {
         transform: translateX(0px);
         scale: 150%;
-        z-index: 3
     }
 }
 
@@ -215,7 +175,6 @@ img {
     to {
         transform: translateX(0px);
         scale: 50%;
-        z-index: 1
     }
 }
 

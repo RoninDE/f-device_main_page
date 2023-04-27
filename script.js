@@ -8,14 +8,83 @@ let imgArray = [
     'images/cat7.png',
 ];
 let container = document.querySelector('.imgCarousel');
-let index = [imgArray.length-1, 0, 1, 2];
+let imgIndexArray = [imgArray.length-1, 0, 1, 2];
 
-function properIndex() {
-    for (i = 0; i < index.length; i++) {
-        if (index[i] >= imgArray.length) 
-            index[i] = index[i] % imgArray.length
-        else if (index[i] < 0) 
-            index[i] = (imgArray.length + index[i]) % imgArray.length;
+
+let boxArray = [leftImg, mainImg, rightImg, hiddenImg] = [,,,,];
+console.log(boxArray);
+
+function createCarousel() {
+    
+    appendImgBoxes();
+    boxArray = [leftImg, mainImg, rightImg, hiddenImg] = [document.querySelector('.leftImg'),
+                                                          document.querySelector('.mainImg'),
+                                                          document.querySelector('.rightImg'),
+                                                          document.querySelector('.hiddenImg')];
+    setSrc();
+
+    appendButtons();
+    console.log(mainImg.style);
+}
+
+function createButton(buttonName, isForward) {
+    let newButton = document.createElement('button');
+    newButton.className = buttonName;
+    newButton.addEventListener('click', function() {shiftImages(isForward);});
+    return newButton;
+}
+
+function appendButtons() {
+    leftButton = createButton('shiftLeft', 0);
+    container.appendChild(leftButton); 
+
+    rightButton = createButton('shiftRight', 1);
+    container.appendChild(rightButton); 
+}
+
+function createImageBox(boxclass) {
+    let box = document.createElement('img');
+    box.setAttribute('class', boxclass);
+    return box;
+    
+}
+
+function appendImgBoxes() {
+    hiddenBox = createImageBox('hiddenImg');
+    container.appendChild(hiddenBox);
+
+    leftBox = createImageBox('leftImg');
+    container.appendChild(leftBox);
+
+    rightBox = createImageBox('rightImg');
+    container.appendChild(rightBox);
+
+    mainBox = createImageBox('mainImg');
+    container.appendChild(mainBox);
+
+}
+
+function setSrc() {
+    for (i = 0; i < 4; i++) {
+        boxArray[i].setAttribute('src', imgArray[imgIndexArray[i]]);
+    }
+    // leftImg.setAttribute('src', imgArray[imgIndexArray[0]]);
+    // mainImg.setAttribute('src', imgArray[imgIndexArray[1]]);
+    // rightImg.setAttribute('src', imgArray[imgIndexArray[2]]);
+    // hiddenImg.setAttribute('src', imgArray[imgIndexArray[3]]);
+}
+
+function updateHidden() {
+    hiddenImg.setAttribute('src', imgArray[imgIndexArray[3]]);
+
+}
+
+function setProperIndex() {
+    for (i = 0; i < imgIndexArray.length; i++) {
+        if (imgIndexArray[i] >= imgArray.length) 
+            imgIndexArray[i] = imgIndexArray[i] % imgArray.length
+        else if (imgIndexArray[i] < 0) 
+            imgIndexArray[i] = (imgArray.length + imgIndexArray[i]) % imgArray.length;
     }
 
 };
@@ -62,60 +131,90 @@ function changeImageClass(isForward) {
 }
 
 function animate(isForward) {
-    addAnimationClass(isForward);
-    setTimeout(changeImageClass, 500, isForward);
-    setTimeout(removeAnimationClass, 500, isForward);
-}
-                
 
+    let id = null;
+    let scale = 0;
+    let pos = 0;
+    let initPos= mainImg.getBoundingClientRect();
+    console.log(initPos.left);
+    clearInterval(id);
+    id = setInterval(move, 5);
+    function move() {
+      if (scale == 0.5) {
+        clearInterval(id);
+      } else if (pos == 200) {
+        clearInterval(id);
+      } else if (pos == -200) {
+        clearInterval(id);
+      } else {
+        scale += 0.005;
+        isForward ? pos += 2 : pos -= 2;
+        mainImg.style.left = initPos.left + pos + 'px';
+        mainImg.style.scale = 1.5 - scale;
+      }
+    }
+  }
+
+function changeZIndex(isForward) {
+    if (isForward) {
+        // document.querySelector('.hiddenImg-animate-forward').style.zIndex = 2;
+        document.querySelector('.mainImg-animate-forward').style.zIndex = 2;
+        document.querySelector('.leftImg-animate-forward').style.zIndex = 1;
+        document.querySelector('.rightImg-animate-forward').style.zIndex = 3;
+    } else {
+        // document.querySelector('.hiddenImg-animate-backward').style.zIndex = 2;
+        document.querySelector('.mainImg-animate-backward').style.zIndex = 2;
+        document.querySelector('.leftImg-animate-backward').style.zIndex = 3;
+        document.querySelector('.rightImg-animate-backward').style.zIndex = 1;
+    }
+}
+function pauseAnimation() {
+    document.querySelector('.leftImg').style.animationPlayState = 'paused, paused';
+    document.querySelector('.mainImg').style.animationPlayState = 'paused, paused';
+    document.querySelector('.rightImg').style.animationPlayState = 'paused, paused';
+    document.querySelector('.hiddenImg').style.animationPlayState = 'paused, paused';
+}
+
+function runAnimation(isForward) {
+    if (isForward) {
+        document.querySelector('.leftImg').style.animationPlayState = 'running, paused';
+        document.querySelector('.mainImg').style.animationPlayState = 'running, paused';
+        document.querySelector('.rightImg').style.animationPlayState = 'running, paused';
+        document.querySelector('.hiddenImg').style.animationPlayState = 'running, paused';
+    } else {
+        document.querySelector('.leftImg').style.animationPlayState = 'paused, running';
+        document.querySelector('.mainImg').style.animationPlayState = 'paused, running';
+        document.querySelector('.rightImg').style.animationPlayState = 'paused, running';
+        document.querySelector('.hiddenImg').style.animationPlayState = 'paused, running';
+    }
+}
+
+// function animate(isForward) {
+    // addAnimationClass(isForward);
+    // changeZIndex(isForward);
+    // setTimeout(() => {changeZIndex(isForward)}, 250);
+    // setTimeout(() => {
+    //     changeImageClass(isForward);
+    //     setTimeout(removeAnimationClass(isForward));
+    //     }, 500);
+
+// }
 
 function shiftImages(isForward) {
-    for (i = 0; i < index.length; i++) {
-        index[i] = isForward ? (index[i] + 1) : (index[i] - 1);
-    }
-    properIndex();
-    animate(isForward);
-    setTimeout(updateHidden, 500);
-    // console.log(index);
-}
-
-function createButton(buttonName, isForward) {
-    let newButton = document.createElement('button');
-    newButton.className = buttonName;
-    newButton.addEventListener('click', function() {shiftImages(isForward);});
-    container.appendChild(newButton); 
-}
-
-function createImageBox(boxclass) {
-    let box = document.createElement('img');
-    box.setAttribute('class', boxclass);
-    container.appendChild(box);
-}
-
-function setSrc() {
-    document.querySelector('.leftImg').setAttribute('src', imgArray[index[0]]);
-    document.querySelector('.mainImg').setAttribute('src', imgArray[index[1]]);
-    document.querySelector('.rightImg').setAttribute('src', imgArray[index[2]]);
-    document.querySelector('.hiddenImg').setAttribute('src', imgArray[index[3]]);
-}
-
-function updateHidden() {
-    document.querySelector('.hiddenImg').setAttribute('src', imgArray[index[3]]);
-
-}
-
-function createCarousel() {
-    
-    createImageBox('hiddenImg');
-    createImageBox('leftImg');
-    createImageBox('rightImg');
-    createImageBox('mainImg');
+    imgIndexArray = imgIndexArray.map((i) => isForward ? i + 1 : i - 1);
+    setProperIndex();
     setSrc();
+    animate(isForward);
+    // runAnimation(isForward);
 
-    createButton('shiftLeft', 0);
-
-    createButton('shiftRight', 1);
-
+    // setTimeout(() => {
+    //     pauseAnimation();
+    //     updateHidden();
+    //     }, 500);
+    console.log(imgIndexArray);
 }
+
+
+
 
 createCarousel();

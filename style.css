@@ -87,25 +87,25 @@ img {
 }
 
 .leftImg {
-    transform: translateX(-200px);
+    /* transform: translateX(-200px); */
     z-index: 2;
     animation-name: slide-left-forward, slide-left-backward;
 }
 
 .rightImg {
-    transform: translateX(200px);
+    /* transform: translateX(200px); */
     z-index: 2;
     animation-name: slide-right-forward, slide-right-backward;
 }
 
 .mainImg {
-    scale: 150%;
+    /* scale: 150%; */
     z-index: 3;
     animation-name: slide-main-forward, slide-main-backward;
 }
 
 .hiddenImg {
-    scale: 50%;
+    /* scale: 50%; */
     z-index: 1;
     animation-name: slide-hidden-forward, slide-hidden-backward;
 }

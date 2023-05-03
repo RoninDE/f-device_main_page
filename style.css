@@ -75,7 +75,9 @@ img {
     position: relative;
     display: flex;
     justify-content: center;
+    height: 200px;
     margin-top: 150px;
+    margin-bottom: 150px;
 
 }
 
@@ -86,97 +88,7 @@ img {
     
 }
 
-.leftImg {
-    /* transform: translateX(-200px); */
-    z-index: 2;
-    animation-name: slide-left-forward, slide-left-backward;
-}
 
-.rightImg {
-    /* transform: translateX(200px); */
-    z-index: 2;
-    animation-name: slide-right-forward, slide-right-backward;
-}
-
-.mainImg {
-    /* scale: 150%; */
-    z-index: 3;
-    animation-name: slide-main-forward, slide-main-backward;
-}
-
-.hiddenImg {
-    /* scale: 50%; */
-    z-index: 1;
-    animation-name: slide-hidden-forward, slide-hidden-backward;
-}
-
-.hiddenImg, .hiddenImg, 
-.mainImg, .mainImg,
-.rightImg, .rightImg,
-.leftImg, .leftImg {
-    animation-duration: 500ms;
-    animation-iteration-count: infinite;
-    animation-play-state: paused, paused;
-}
-
-
-
-@keyframes slide-hidden-forward {
-    to {
-        transform: translateX(200px);
-        scale: 100%;
-
-    }
-}
-
-@keyframes slide-hidden-backward {
-    to {
-        transform: translateX(-200px);
-        scale: 100%;
-    }
-}
-
-@keyframes slide-main-forward {
-    to {
-        transform: translateX(-200px);
-        scale: 100%;
-    }
-}
-
-@keyframes slide-main-backward {
-    to {
-        transform: translateX(200px);
-        scale: 100%;
-    }
-}
-
-@keyframes slide-left-forward {
-    to {
-        transform: translateX(0px);
-        scale: 50%;
-    }
-}
-
-@keyframes slide-left-backward {
-    to {
-        transform: translateX(0px);
-        scale: 150%;
-    }
-}
-
-@keyframes slide-right-forward {
-    to {
-        transform: translateX(0px);
-        scale: 150%;
-    }
-}
-
-@keyframes slide-right-backward {
-    to {
-        transform: translateX(0px);
-        scale: 50%;
-    }
-}
 
 button {
     background-color: transparent;

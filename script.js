@@ -11,7 +11,8 @@ let container = document.querySelector('.imgCarousel');
 let imgIndexArray = [imgArray.length-1, 0, 1, 2];
 
 
-let boxArray = [leftImg, mainImg, rightImg, hiddenImg] = [,,,,];
+let boxArray = [];
+let leftImg, mainImg, rightImg, hiddenImg;
 let leftStyle, mainStyle, rightStyle, hiddenStyle, spareStyle; 
 console.log(boxArray);
 
@@ -100,10 +101,10 @@ function setProperIndex() {
 }
 
 function setStyles() {
-    leftImg.style.transform = "translate(-200px) scale(1)";
-    mainImg.style.transform = "translate(0px) scale(1.5)";
-    rightImg.style.transform = "translate(200px) scale(1)";
-    hiddenImg.style.transform = "translate(0px) scale(0.5)";
+    leftImg.style.transform = "scale(1) translate(-200px)";
+    mainImg.style.transform = "scale(1.5) translate(0px)";
+    rightImg.style.transform = "scale(1) translate(200px)";
+    hiddenImg.style.transform = "scale(0.5) translate(0px)";
     leftImg.style.zIndex = "2";
     mainImg.style.zIndex = "3";
     rightImg.style.zIndex = "2";
@@ -114,6 +115,7 @@ function setStyles() {
 }
 
 function changeImageStyles(isForward) {
+    let spareStyleTransform;
     if (isForward) {
         spareStyleTransform = rightImg.style.transform;
         rightImg.style.transform = mainImg.style.transform;
@@ -145,23 +147,13 @@ function changeImageStyles(isForward) {
 function changeClasses(isForward) {
     let spareLink;
     if (isForward) {
-        rightImg.className = 'mainImg';
-        mainImg.className = 'leftImg';
-        leftImg.className = 'hiddenImg';
-        hiddenImg.className = 'rightImg';
-
         spareLink = rightImg;
         rightImg = mainImg;
         mainImg = leftImg;
         leftImg = hiddenImg;
         hiddenImg = spareLink;
     } else {
-        leftImg.className = 'mainImg';
-        mainImg.className = 'rightImg';
-        rightImg.className = 'hiddenImg';
-        hiddenImg.className = 'leftImg';
-
-        spareLink = leftImg;
+       spareLink = leftImg;
         leftImg = mainImg;
         mainImg = rightImg;
         rightImg = hiddenImg;

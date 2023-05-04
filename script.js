@@ -20,7 +20,7 @@ const animationDuration = 300;
 
 let images = [];
 let leftImg, mainImg, rightImg, hiddenImg;
-let hiddenSrcIndex;
+let mainSrcIndex;
 
 let animationTimeout;
 
@@ -30,7 +30,7 @@ function createCarousel() {
     for (i = 0; i < carouselImagesCount + 1; i++) {
         images[i].setAttribute('src', imgArray[getValidIndex(imgArray.length, i - 1)]);
     }
-    hiddenSrcIndex = carouselImagesCount-1;
+    mainSrcIndex = 0;
     matchStylesToImages(images, positions);
     appendImages(container, images);
     console.log(images);
@@ -126,12 +126,12 @@ function shiftImages(isForward) {
         return;
     }
 
-    hiddenSrcIndex += isForward ? 1 : -1;
-    const newHiddenSrcIndex = getValidIndex(imgArray.length, hiddenSrcIndex);
+    const newHiddenSrcIndex = getValidIndex(imgArray.length, mainSrcIndex + (isForward ? 2 : -2));
     const newHiddenSrc = imgArray[newHiddenSrcIndex];
-        // console.log(hiddenSrcIndex, newHiddenSrcIndex);
-    changeImageStyles(isForward);
-    setTimeout(() => updateHidden(newHiddenSrc), animationDuration);
+    mainSrcIndex += isForward ? 1 : -1;
+        console.log(mainSrcIndex, newHiddenSrcIndex);
+        updateHidden(newHiddenSrc);
+        changeImageStyles(isForward);
     
     animationTimeout = setTimeout(() => {
         animationTimeout = undefined;

@@ -81,7 +81,7 @@ img {
 
 }
 
-.mainImg, .leftImg, .rightImg, .hiddenImg {
+.imgCarousel img {
     width: 200px;
     height: 200px;
     position: absolute;
@@ -98,7 +98,7 @@ button {
     height: 100px;
     position: absolute;
     top: 50px;
-    z-index: 4;    
+    z-index: 5;    
 }
 
 button:active {

@@ -1,38 +1,39 @@
-let imgArray = [
-    'images/cat1.jpg',
-    'images/cat2.jpg',
-    'images/cat3.jpg',
-    'images/cat4.jpg',
-    'images/cat5.png',
-    'images/cat6.png',
-    'images/cat7.png',
+const imgArray = [
+    'images/1.jpg',
+    'images/2.jpg',
+    'images/3.jpg',
+    'images/4.jpg',
+    'images/5.jpg',
+    'images/6.jpg',
+    'images/7.jpg',
 ];
-let container = document.querySelector('.imgCarousel');
-let imgIndexArray = [imgArray.length-1, 0, 1, 2];
+const container = document.querySelector('.imgCarousel');
+const leftImgTransform = "scale(1) translate(-200px)";
+const mainImgTransform = "scale(1.5) translate(0px)";
+const rightImgTransform = "scale(1) translate(200px)";
+const hiddenImgTransform = "scale(0.5) translate(0px)";
 
+const positions = ['left', 'main', 'right', 'hidden'];
 
-let boxArray = [];
+const carouselImagesCount = 3;
+const animationDuration = 300;
+
+let images = [];
 let leftImg, mainImg, rightImg, hiddenImg;
-let leftStyle, mainStyle, rightStyle, hiddenStyle, spareStyle; 
-console.log(boxArray);
+let hiddenSrcIndex;
+
+let animationTimeout;
 
 function createCarousel() {
-    
-    appendImgBoxes();
-    boxArray = [leftImg, mainImg, rightImg, hiddenImg] = [document.querySelector('.leftImg'),
-                                                          document.querySelector('.mainImg'),
-                                                          document.querySelector('.rightImg'),
-                                                          document.querySelector('.hiddenImg')];
-    setSrc();
-    console.log(imgIndexArray);
-    setStyles();
-    leftStyle = leftImg.style.transform;
-    mainStyle = mainImg.style.transform;
-    rightStyle = rightImg.style.transform;
-    hiddenStyle = hiddenImg.style.transform;
-    console.log(rightImg, document.querySelector('.rightImg'));
-
-    console.log(leftStyle);
+    const imgElems = createImages(carouselImagesCount + 1);
+    images = [...imgElems];
+    for (i = 0; i < carouselImagesCount + 1; i++) {
+        images[i].setAttribute('src', imgArray[getValidIndex(imgArray.length, i - 1)]);
+    }
+    hiddenSrcIndex = carouselImagesCount-1;
+    matchStylesToImages(images, positions);
+    appendImages(container, images);
+    console.log(images);
     appendButtons();
 }
 
@@ -40,7 +41,8 @@ function createCarousel() {
 function createButton(buttonName, isForward) {
     let newButton = document.createElement('button');
     newButton.className = buttonName;
-    newButton.addEventListener('click', function() {shiftImages(isForward);});
+    newButton.addEventListener('click', () => shiftImages(isForward));
+
     return newButton;
 }
 
@@ -52,241 +54,89 @@ function appendButtons() {
     container.appendChild(rightButton); 
 }
 
-function createImageBox(boxclass) {
+function createImageElement() {
     let box = document.createElement('img');
-    box.setAttribute('class', boxclass);
+
     return box;
-    
 }
 
-function appendImgBoxes() {
-    hiddenBox = createImageBox('hiddenImg');
-    container.appendChild(hiddenBox);
+function createImages(n) {
+    return new Array(n).fill('').map(() => createImageElement());
+}
 
-    leftBox = createImageBox('leftImg');
-    container.appendChild(leftBox);
-
-    rightBox = createImageBox('rightImg');
-    container.appendChild(rightBox);
-
-    mainBox = createImageBox('mainImg');
-    container.appendChild(mainBox);
-
+function appendImages(target, imgs) {
+    imgs.forEach(img => target.appendChild(img));
 }
 }
 
-function setSrc() {
-    for (i = 0; i < 4; i++) {
-        boxArray[i].setAttribute('src', imgArray[imgIndexArray[i]]);
+function setImagePositions(img, pos = 'left' | 'right' | 'main' | 'hidden', isForward = true) {
+    switch (pos) {
+        case 'left':
+            img.style.transform = leftImgTransform;
+            img.style.zIndex = isForward ? 3 : 2;
+            break;
+        case 'main':
+            img.style.transform = mainImgTransform;
+            img.style.zIndex = 4;
+            break;
+        case 'right':
+            img.style.transform = rightImgTransform;
+            img.style.zIndex = isForward ? 2 : 3;
+            break;
+        case 'hidden':
+            img.style.transform = hiddenImgTransform;
+            img.style.zIndex = 1;
+            break;
     }
-    // leftImg.setAttribute('src', imgArray[imgIndexArray[0]]);
-    // mainImg.setAttribute('src', imgArray[imgIndexArray[1]]);
-    // rightImg.setAttribute('src', imgArray[imgIndexArray[2]]);
-    // hiddenImg.setAttribute('src', imgArray[imgIndexArray[3]]);
 }
 
-function updateHidden() {
-    hiddenImg.setAttribute('src', imgArray[imgIndexArray[3]]);
-
+function getValidIndex(length, i) {
+    return i >=0 ? i % length : Math.abs(i + length) % length;
 }
 
-function setProperIndex() {
-    for (i = 0; i < imgIndexArray.length; i++) {
-        if (imgIndexArray[i] >= imgArray.length) 
-            imgIndexArray[i] = imgIndexArray[i] % imgArray.length
-        else if (imgIndexArray[i] < 0) 
-            imgIndexArray[i] = (imgArray.length + imgIndexArray[i]) % imgArray.length;
+function shiftArrayItems(array, n) {
+    const arrayCopy = [...array];
+
+    for (let i = 0; i < array.length; i++) {
+        array[i] = arrayCopy[getValidIndex(array.length, i + n)];
     }
 
+    return array;
 }
 
-function setStyles() {
-    leftImg.style.transform = "scale(1) translate(-200px)";
-    mainImg.style.transform = "scale(1.5) translate(0px)";
-    rightImg.style.transform = "scale(1) translate(200px)";
-    hiddenImg.style.transform = "scale(0.5) translate(0px)";
-    leftImg.style.zIndex = "2";
-    mainImg.style.zIndex = "3";
-    rightImg.style.zIndex = "2";
-    hiddenImg.style.zIndex = "1";
-    for (i = 0; i < 4; i++) {
-        boxArray[i].style.transition = '500ms';
-    }
+function matchStylesToImages(imgs, pos, isForward) {
+    imgs.forEach((img, index) => {setImagePositions(img, pos[index], isForward);
+                                  img.style.transition = `${animationDuration}ms`;
+                                 }
+    );
 }
 
 function changeImageStyles(isForward) {
-    let spareStyleTransform;
-    if (isForward) {
-        spareStyleTransform = rightImg.style.transform;
-        rightImg.style.transform = mainImg.style.transform;
-        mainImg.style.transform = leftImg.style.transform;
-        leftImg.style.transform = hiddenImg.style.transform;
-        hiddenImg.style.transform = spareStyleTransform;
-
-        spareStyleZIndex = rightImg.style.zIndex;
-        rightImg.style.zIndex = mainImg.style.zIndex;
-        mainImg.style.zIndex = leftImg.style.zIndex;
-        leftImg.style.zIndex = hiddenImg.style.zIndex;
-        hiddenImg.style.zIndex = spareStyleZIndex;
-    } else {
-        spareStyleTransform = leftImg.style.transform;
-        leftImg.style.transform = mainImg.style.transform;
-        mainImg.style.transform = rightImg.style.transform;
-        rightImg.style.transform = hiddenImg.style.transform;
-        hiddenImg.style.transform = spareStyleTransform;
-
-        spareStyleZIndex = leftImg.style.zIndex;
-        leftImg.style.zIndex = mainImg.style.zIndex;
-        mainImg.style.zIndex = rightImg.style.zIndex;
-        rightImg.style.zIndex = hiddenImg.style.zIndex;
-        hiddenImg.style.zIndex = spareStyleZIndex;
-        
-    }
+    shiftArrayItems(positions, isForward ? -1 : 1);
+    matchStylesToImages(images, positions, isForward);
 }
 
-function changeClasses(isForward) {
-    let spareLink;
-    if (isForward) {
-        spareLink = rightImg;
-        rightImg = mainImg;
-        mainImg = leftImg;
-        leftImg = hiddenImg;
-        hiddenImg = spareLink;
-    } else {
-       spareLink = leftImg;
-        leftImg = mainImg;
-        mainImg = rightImg;
-        rightImg = hiddenImg;
-        hiddenImg = spareLink;
-    }
-}
-
-/*unused functions*/ {
-function addAnimationClass(isForward) {
-    if (isForward) {
-        document.querySelector('.hiddenImg').classList.add('hiddenImg-animate-forward');
-        document.querySelector('.mainImg').classList.add('mainImg-animate-forward');
-        document.querySelector('.leftImg').classList.add('leftImg-animate-forward');
-        document.querySelector('.rightImg').classList.add('rightImg-animate-forward');
-    } else {
-        document.querySelector('.hiddenImg').classList.add('hiddenImg-animate-backward');
-        document.querySelector('.mainImg').classList.add('mainImg-animate-backward');
-        document.querySelector('.leftImg').classList.add('leftImg-animate-backward');
-        document.querySelector('.rightImg').classList.add('rightImg-animate-backward');
-    }
-}
-
-function removeAnimationClass(isForward) {
-    if (isForward) {
-        document.querySelector('.hiddenImg').classList.remove('hiddenImg-animate-forward');
-        document.querySelector('.mainImg').classList.remove('mainImg-animate-forward');
-        document.querySelector('.leftImg').classList.remove('leftImg-animate-forward');
-        document.querySelector('.rightImg').classList.remove('rightImg-animate-forward');
-    } else {
-        document.querySelector('.hiddenImg').classList.remove('hiddenImg-animate-backward');
-        document.querySelector('.mainImg').classList.remove('mainImg-animate-backward');
-        document.querySelector('.leftImg').classList.remove('leftImg-animate-backward');
-        document.querySelector('.rightImg').classList.remove('rightImg-animate-backward');
-    }
-}
-
-function changeImageClass(isForward) {
-    if (isForward) {
-        document.querySelector('.hiddenImg-animate-forward').className = 'rightImg';
-        document.querySelector('.mainImg-animate-forward').className = 'leftImg';
-        document.querySelector('.leftImg-animate-forward').className = 'hiddenImg';
-        document.querySelector('.rightImg-animate-forward').className = 'mainImg';
-    } else {
-        document.querySelector('.hiddenImg-animate-backward').className = 'leftImg';
-        document.querySelector('.mainImg-animate-backward').className = 'rightImg';
-        document.querySelector('.leftImg-animate-backward').className = 'mainImg';
-        document.querySelector('.rightImg-animate-backward').className = 'hiddenImg';
-    }
-}
-
-function animate(isForward) {
-
-    let id = null;
-    let scale = 0;
-    let pos = 0;
-    let initPos= mainImg.getBoundingClientRect();
-    console.log(initPos.left);
-    clearInterval(id);
-    id = setInterval(move, 5);
-    function move() {
-      if (scale == 0.5) {
-        clearInterval(id);
-      } else if (pos == 200) {
-        clearInterval(id);
-      } else if (pos == -200) {
-        clearInterval(id);
-      } else {
-        scale += 0.005;
-        isForward ? pos += 2 : pos -= 2;
-        mainImg.style.left = initPos.left + pos + 'px';
-        mainImg.style.scale = 1.5 - scale;
-      }
-    }
-  }
-
-function changeZIndex(isForward) {
-    if (isForward) {
-        // document.querySelector('.hiddenImg-animate-forward').style.zIndex = 2;
-        document.querySelector('.mainImg-animate-forward').style.zIndex = 2;
-        document.querySelector('.leftImg-animate-forward').style.zIndex = 1;
-        document.querySelector('.rightImg-animate-forward').style.zIndex = 3;
-    } else {
-        // document.querySelector('.hiddenImg-animate-backward').style.zIndex = 2;
-        document.querySelector('.mainImg-animate-backward').style.zIndex = 2;
-        document.querySelector('.leftImg-animate-backward').style.zIndex = 3;
-        document.querySelector('.rightImg-animate-backward').style.zIndex = 1;
-    }
-}
-function pauseAnimation() {
-    document.querySelector('.leftImg').style.animationPlayState = 'paused, paused';
-    document.querySelector('.mainImg').style.animationPlayState = 'paused, paused';
-    document.querySelector('.rightImg').style.animationPlayState = 'paused, paused';
-    document.querySelector('.hiddenImg').style.animationPlayState = 'paused, paused';
-}
-
-function runAnimation(isForward) {
-    if (isForward) {
-        document.querySelector('.leftImg').style.animationPlayState = 'running, paused';
-        document.querySelector('.mainImg').style.animationPlayState = 'running, paused';
-        document.querySelector('.rightImg').style.animationPlayState = 'running, paused';
-        document.querySelector('.hiddenImg').style.animationPlayState = 'running, paused';
-    } else {
-        document.querySelector('.leftImg').style.animationPlayState = 'paused, running';
-        document.querySelector('.mainImg').style.animationPlayState = 'paused, running';
-        document.querySelector('.rightImg').style.animationPlayState = 'paused, running';
-        document.querySelector('.hiddenImg').style.animationPlayState = 'paused, running';
-    }
-}
-
-// function animate(isForward) {
-    // addAnimationClass(isForward);
-    // changeZIndex(isForward);
-    // setTimeout(() => {changeZIndex(isForward)}, 250);
-    // setTimeout(() => {
-    //     changeImageClass(isForward);
-    //     setTimeout(removeAnimationClass(isForward));
-    //     }, 500);
-
-// }
+function updateHidden(src) {
+    const hiddenIndex = positions.findIndex(x => x === 'hidden');
+    images[hiddenIndex].setAttribute('src', src);
 }
 
 function shiftImages(isForward) {
-    imgIndexArray = imgIndexArray.map((i) => isForward ? i - 1 : i + 1);
-    setProperIndex();
-    // setSrc();
+    if (animationTimeout) {
+        return;
+    }
+
+    hiddenSrcIndex += isForward ? 1 : -1;
+    const newHiddenSrcIndex = getValidIndex(imgArray.length, hiddenSrcIndex);
+    const newHiddenSrc = imgArray[newHiddenSrcIndex];
+        // console.log(hiddenSrcIndex, newHiddenSrcIndex);
     changeImageStyles(isForward);
-    changeClasses(isForward);
-    // updateHidden();
+    setTimeout(() => updateHidden(newHiddenSrc), animationDuration);
+    
+    animationTimeout = setTimeout(() => {
+        animationTimeout = undefined;
+    }, animationDuration + 5);
 
-    console.log(imgIndexArray);
 }
-
-
-
 
 createCarousel();

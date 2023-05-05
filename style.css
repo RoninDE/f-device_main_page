@@ -88,30 +88,37 @@ img {
     
 }
 
-
+.buttonContainer {
+    width: 720px;
+    position: relative;
+}
 
 button {
     background-color: transparent;
     border: 0;
     padding: 0;
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     position: absolute;
-    top: 50px;
+    top: 65px;
+    opacity: 50%;
     z-index: 5;    
 }
 
+button:hover {
+    opacity: 100%;
+}
 button:active {
     scale: 90%;
 }
 
 .shiftLeft {
-    left: 35%;
+    left: 0;
     background-image: url(images/leftbutton.svg);
 }
 
 .shiftRight {
-    right: 35%;
+    right: 0;
     background-image: url(images/leftbutton.svg);
     rotate: 180deg;
 

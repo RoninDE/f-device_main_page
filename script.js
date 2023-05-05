@@ -26,6 +26,8 @@ let animationTimeout;
 
 function createCarousel() {
     const imgElems = createImages(carouselImagesCount + 1);
+    const buttonContainer = createButtonContainer();
+
     images = [...imgElems];
     for (i = 0; i < carouselImagesCount + 1; i++) {
         images[i].setAttribute('src', imgArray[getValidIndex(imgArray.length, i - 1)]);
@@ -33,8 +35,9 @@ function createCarousel() {
     mainSrcIndex = 0;
     matchStylesToImages(images, positions);
     appendImages(container, images);
-    console.log(images);
-    appendButtons();
+    
+    appendButtons(buttonContainer);
+    container.appendChild(buttonContainer);
 }
 
 /*create and append*/ {
@@ -46,12 +49,19 @@ function createButton(buttonName, isForward) {
     return newButton;
 }
 
-function appendButtons() {
+function createButtonContainer() {
+    let buttonContainer = document.createElement('div');
+    buttonContainer.className = 'buttonContainer';
+    
+    return buttonContainer;
+}
+
+function appendButtons(target) {
     leftButton = createButton('shiftLeft', 0);
-    container.appendChild(leftButton); 
+    target.appendChild(leftButton); 
 
     rightButton = createButton('shiftRight', 1);
-    container.appendChild(rightButton); 
+    target.appendChild(rightButton); 
 }
 
 function createImageElement() {

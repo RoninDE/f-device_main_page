@@ -15,6 +15,8 @@ h2 {
     font-size: 1.5em;
 }
 
+/* #region list styles*/
+
 .list {
     display: grid;
     grid-template-columns: auto auto;
@@ -66,10 +68,9 @@ ul {
         opacity: 100%;
     }
 }
+/* #endregion */
 
-img {
-    height: 200px;
-}    
+/* #region carousel styles*/
 
 .imgCarousel {
     position: relative;
@@ -87,6 +88,9 @@ img {
     position: absolute;
     
 }
+/* #endregion */
+
+/* #region button styles*/ 
 
 .buttonContainer {
     width: 720px;
@@ -123,4 +127,27 @@ button:active {
     rotate: 180deg;
 
 }
+/*#endregion*/
 
+/* #region curtain styles */
+
+.imgCurtain {
+    justify-content: center;
+    position: relative;
+    display: flex;
+    height: 300px;
+}
+
+.imgCurtain div {
+    position: absolute;
+}
+
+.imgCurtain img {
+    border: 0;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    object-fit: none;
+    object-position: left;
+}
+/* #endregion */

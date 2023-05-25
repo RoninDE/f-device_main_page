@@ -135,19 +135,33 @@ button:active {
     justify-content: center;
     position: relative;
     display: flex;
-    height: 300px;
+    height: 270px;
 }
 
 .imgCurtain div {
-    position: absolute;
+    display: flex;
+    position: relative;
+    width: 350px;
 }
 
-.imgCurtain img {
+
+
+.imgCurtain .top, .bottom {
+    display: flex;
     border: 0;
     padding: 0;
     position: absolute;
     height: 100%;
+    width: 100%;
     object-fit: none;
     object-position: left;
+}
+
+.imgCurtain .curtain {
+    display: flex;
+    position: absolute;
+    object-fit: contain;
+    height: 270px;
+    vertical-align: middle;
 }
 /* #endregion */

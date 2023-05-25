@@ -1,26 +1,35 @@
 const curtainContainer = document.querySelector('.imgCurtain');
-const imageArray = ['images/curtain-1.jpg',
-                    'images/curtain-2.jpg'];
 
-
-let topImg, bottomImg, leftBorder, rightBorder;
+let topImg, bottomImg, curtain, curtainWrapper, leftBorder, rightBorder;
 
 function createCurtain() {
-    const images = createImages(2, imageArray, ['bottom', 'top']);
-    // const imageContainers = createImageContainers(['bottom', 'top']);
+
+    bottomImg = document.createElement('img');
+    bottomImg.className = 'bottom';
+    bottomImg.setAttribute('src', 'images/curtain-4.jpg');
+    bottomImg.setAttribute('draggable', 'false');
+
+    topImg = document.createElement('img');
+    topImg.className = 'top';
+    topImg.setAttribute('src', 'images/curtain-3.jpg');
+    topImg.setAttribute('draggable', 'false');
+    topImg.style.width = `0px`
     
-    // imageContainers[0].appendChild(images[0]);
-    // imageContainers[1].appendChild(images[1]);
+    curtain = document.createElement('img');
+    curtain.className = 'curtain';
+    curtain.setAttribute('src', 'images/curtain.svg');
+    curtain.setAttribute('draggable', 'false');
+    curtain.style.transform = 'translate(-6px)';
+
+    curtainWrapper = document.createElement('div');
+    curtainWrapper.className = 'wrapper';
+
+    curtainContainer.appendChild(curtainWrapper);
+    curtainWrapper.appendChild(bottomImg);
+    curtainWrapper.appendChild(topImg);
+    curtainWrapper.appendChild(curtain);
     
-    // curtainContainer.appendChild(imageContainers[0]);
-    // curtainContainer.appendChild(imageContainers[1]);
-    curtainContainer.appendChild(images[0]);
-    curtainContainer.appendChild(images[1]);
-    
-    topImg = document.querySelector('.top');
-    bottomImg = document.querySelector('.bottom');
-    
-    topImg.addEventListener('mousemove', moveCurtain);
+    curtain.addEventListener('mousedown', addListener);
 
 }
 
@@ -36,23 +45,32 @@ function createImages(n, srcArray, classNames) {
     return imgs;
 }
 
-// function createImageContainers(classNames) {
-//     let imgContainers = new Array(classNames.length);
-//     for (i = 0; i < classNames.length; i++) {
-//         imgContainers[i] = document.createElement('div');
-//         imgContainers[i].className = classNames[i];
-//     }
+function addListener() {
+    curtainWrapper.addEventListener('mousemove', moveCurtain);
+}
 
-//     return imgContainers;
-// }
+function removeListener() {
+    curtainWrapper.removeEventListener('mousemove', moveCurtain);
 
+}
 function moveCurtain(e) {
-    
+    let curtainWidth = curtain.getBoundingClientRect().width;
+    let wrapperLeft = curtainWrapper.getBoundingClientRect().left;
+    let bottomImgWidth = bottomImg.getBoundingClientRect().width;
+    let rightBorder = bottomImg.getBoundingClientRect().right;
+    let topImgWidth = topImg.getBoundingClientRect().width;
     leftBorder = bottomImg.getBoundingClientRect().left;
-    // rightBorder = bottomImg.getBoundingClientRect().right;
-    
-    topImg.style.left = `${leftBorder}px`;
-    topImg.style.width = `${e.clientX - leftBorder}px`;
+
+    curtain.style.removeProperty('transform');
+    // console.log(topImgWidth, bottomImgWidth);
+    // if ((topImgWidth <= bottomImgWidth) && (topImgWidth >= 0.5)) {
+        curtain.style.left = `${e.clientX - curtainWidth/2 - wrapperLeft}px`;
+        topImg.style.width = `${e.clientX -leftBorder}px`;
+    // } else {
+    //     topImg.style.width = `${bottomImgWidth}px`;
+    //     curtain.style.left = `${rightBorder - curtainWidth/2 - wrapperLeft}px`
+    // }
+    curtainWrapper.addEventListener('mouseup', removeListener);
     
 }
 

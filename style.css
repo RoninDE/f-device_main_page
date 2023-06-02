@@ -141,7 +141,7 @@ button:active {
 .imgCurtain div {
     display: flex;
     position: relative;
-    width: 350px;
+    width: 780px;
 }
 
 
@@ -153,7 +153,7 @@ button:active {
     position: absolute;
     height: 100%;
     width: 100%;
-    object-fit: none;
+    object-fit: cover;
     object-position: left;
 }
 

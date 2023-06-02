@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2979 1024" style="enable-background:new 0 0 2979 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;fill:#141414;}
+	.st2{display:inline;}
+	.st3{fill:#141414;}
+	.st4{display:none;fill:none;stroke:#1C8C45;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#1C8C45;stroke-width:2;stroke-miterlimit:10;}
+	.st6{fill:#1C8C45;}
+</style>
+<g id="Layer_1">
+	<g class="st0">
+		<rect x="-239.5" y="119.5" class="st1" width="2767" height="788"/>
+		<path class="st2" d="M2527,120v787H-239V120H2527 M2528,119H-240v789h2768V119L2528,119z"/>
+	</g>
+	<g>
+		<rect x="-239.5" y="0.5" class="st3" width="4151" height="1026"/>
+		<path d="M3911,1v1025H-239V1H3911 M3912,0H-240v1027h4152V0L3912,0z"/>
+	</g>
+</g>
+<g id="Layer_2">
+	<path class="st4" d="M3912,908c-175.7,0-281.6-267.2-345-394.5S3402.7,119,3220,119s-283.6,267.2-347,394.5S2703.7,908,2528,908
+		s-281.6-267.2-345-394.5S2018.7,119,1836,119s-283.6,267.2-347,394.5S1319.7,908,1144,908S862.4,640.8,799,513.5S634.7,119,452,119
+		S168.4,386.2,105,513.5S-64.3,908-240,908"/>
+	<line class="st5" x1="-240.5" y1="511.5" x2="3931.5" y2="511.5"/>
+</g>
+<g id="Layer_3" class="st0">
+</g>
+<g id="Layer_4">
+	<circle class="st6" cx="2735.8" cy="769" r="12.5"/>
+	<circle class="st6" cx="2597.4" cy="894" r="12.5"/>
+	<circle class="st6" cx="2459" cy="894" r="12.5"/>
+	<circle class="st6" cx="2320.6" cy="769" r="12.5"/>
+	<circle class="st6" cx="2182.2" cy="512" r="12.5"/>
+	<circle class="st6" cx="2043.8" cy="253" r="12.5"/>
+	<circle class="st6" cx="1905.4" cy="133" r="12.5"/>
+	<circle class="st6" cx="1767" cy="133" r="12.5"/>
+	<circle class="st6" cx="1628.6" cy="253" r="12.5"/>
+	<circle class="st6" cx="1490.2" cy="512" r="12.5"/>
+	<circle class="st6" cx="1351.8" cy="769" r="12.5"/>
+	<circle class="st6" cx="2874.2" cy="512" r="12.5"/>
+	<circle class="st6" cx="1075" cy="894" r="12.5"/>
+	<circle class="st6" cx="936.6" cy="769" r="12.5"/>
+	<circle class="st6" cx="798.2" cy="512" r="12.5"/>
+	<circle class="st6" cx="659.8" cy="253" r="12.5"/>
+	<circle class="st6" cx="521.4" cy="133" r="12.5"/>
+	<circle class="st6" cx="383" cy="133" r="12.5"/>
+	<circle class="st6" cx="244.6" cy="253" r="12.5"/>
+	<circle class="st6" cx="106.2" cy="512" r="12.5"/>
+	<circle class="st6" cx="1213.4" cy="894" r="12.5"/>
+</g>
+<g id="Layer_5">
+	<line class="st5" x1="383" y1="133" x2="383" y2="512"/>
+	<line class="st5" x1="245" y1="253" x2="245" y2="512"/>
+	<line class="st5" x1="521" y1="133" x2="521" y2="512"/>
+	<line class="st5" x1="660" y1="253" x2="660" y2="512"/>
+	<line class="st5" x1="1767" y1="133" x2="1767" y2="512"/>
+	<line class="st5" x1="1629" y1="253" x2="1629" y2="512"/>
+	<line class="st5" x1="1905" y1="133" x2="1905" y2="512"/>
+	<line class="st5" x1="2044" y1="253" x2="2044" y2="512"/>
+	<line class="st5" x1="1075" y1="891" x2="1075" y2="512"/>
+	<line class="st5" x1="937" y1="771" x2="937" y2="512"/>
+	<line class="st5" x1="1213" y1="891" x2="1213" y2="512"/>
+	<line class="st5" x1="1352" y1="771" x2="1352" y2="512"/>
+	<line class="st5" x1="2459" y1="891" x2="2459" y2="512"/>
+	<line class="st5" x1="2321" y1="771" x2="2321" y2="512"/>
+	<line class="st5" x1="2597" y1="891" x2="2597" y2="512"/>
+	<line class="st5" x1="2736" y1="771" x2="2736" y2="512"/>
+</g>
+</svg>

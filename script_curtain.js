@@ -6,12 +6,12 @@ function createCurtain() {
 
     bottomImg = document.createElement('img');
     bottomImg.className = 'bottom';
-    bottomImg.setAttribute('src', 'images/curtain-4.jpg');
+    bottomImg.setAttribute('src', 'images/sin-2.svg');
     bottomImg.setAttribute('draggable', 'false');
 
     topImg = document.createElement('img');
     topImg.className = 'top';
-    topImg.setAttribute('src', 'images/curtain-3.jpg');
+    topImg.setAttribute('src', 'images/sin-1.svg');
     topImg.setAttribute('draggable', 'false');
     topImg.style.width = `0px`
     

@@ -4,45 +4,34 @@ let topImg, bottomImg, curtain, curtainWrapper, leftBorder, rightBorder;
 
 function createCurtain() {
 
-    bottomImg = document.createElement('img');
-    bottomImg.className = 'bottom';
-    bottomImg.setAttribute('src', 'images/sin-2.svg');
-    bottomImg.setAttribute('draggable', 'false');
-
-    topImg = document.createElement('img');
-    topImg.className = 'top';
-    topImg.setAttribute('src', 'images/sin-1.svg');
-    topImg.setAttribute('draggable', 'false');
-    topImg.style.width = `0px`
+    bottomImg = createElem('img', 'bottom', 'images/sin-2.svg')
+    topImg = createElem('img', 'top', 'images/sin-1.svg')
+    curtain = createElem('div', 'curtain')
+    curtainWrapper = createElem('div', 'wrapper')
     
-    curtain = document.createElement('img');
-    curtain.className = 'curtain';
-    curtain.setAttribute('src', 'images/curtain.svg');
-    curtain.setAttribute('draggable', 'false');
-    curtain.style.transform = 'translate(-6px)';
-
-    curtainWrapper = document.createElement('div');
-    curtainWrapper.className = 'wrapper';
-
-    curtainContainer.appendChild(curtainWrapper);
+    
     curtainWrapper.appendChild(bottomImg);
     curtainWrapper.appendChild(topImg);
     curtainWrapper.appendChild(curtain);
+    curtainContainer.appendChild(curtainWrapper);
     
-    curtainWrapper.addEventListener('mousedown', addListener);
+    let offset = 70;
+    curtain.style.left = `${offset}%`;
+    topImg.style.width = `${bottomImg.getBoundingClientRect().width * offset/100 + 
+                            curtain.getBoundingClientRect().width*0.5}px`;
+    
+    curtain.addEventListener('mousedown', addListener);
 
 }
 
-
-function createImages(n, srcArray, classNames) {
-    let imgs = new Array(n)
-    for (i = 0; i < n; i++) {
-        imgs[i] = document.createElement('img');
-        imgs[i].setAttribute('src', srcArray[i]);
-        imgs[i].className = classNames[i];
+function createElem(type, className, src) {
+    let elem = document.createElement(type);
+    elem.className = className;
+    if (src) {
+        elem.setAttribute('src', src)
     };
 
-    return imgs;
+    return elem;
 }
 
 function addListener() {

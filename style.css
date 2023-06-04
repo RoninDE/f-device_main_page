@@ -135,18 +135,22 @@ button:active {
     justify-content: center;
     position: relative;
     display: flex;
-    height: 270px;
+    height: 250px;
 }
 
-.imgCurtain div {
+.imgCurtain img {
+    pointer-events: none;
+    user-select: none;
+}
+
+.wrapper {
     display: flex;
     position: relative;
-    width: 780px;
+    width: 730px;
 }
 
 
-
-.imgCurtain .top, .bottom {
+.top, .bottom {
     display: flex;
     border: 0;
     padding: 0;
@@ -157,11 +161,22 @@ button:active {
     object-position: left;
 }
 
-.imgCurtain .curtain {
+.curtain {
     display: flex;
     position: absolute;
     object-fit: contain;
-    height: 270px;
+    height: 250px;
+    width: 30px;
     vertical-align: middle;
+    /* border-left: 5px solid rgb(28, 139, 69); */
+    /* border-right: 5px solid rgb(28, 139, 69); */
+    background: linear-gradient(
+        to right,
+        rgba(28, 139, 69, 0),
+        rgba(28, 139, 69, 0.25) 40%,
+        rgba(28, 139, 69, 1),
+        rgba(28, 139, 69, 0.25) 60%,
+        rgba(28, 139, 69, 0)
+    );
 }
 /* #endregion */

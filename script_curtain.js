@@ -20,7 +20,7 @@ function createCurtain() {
     topImg.style.width = `${bottomImg.getBoundingClientRect().width * offset/100 + 
                             curtain.getBoundingClientRect().width*0.5}px`;
     
-    curtain.addEventListener('mousedown', addListener);
+    curtain.addEventListener('mousedown', onMouseDown);
 
 }
 
@@ -34,30 +34,28 @@ function createElem(type, className, src) {
     return elem;
 }
 
-function addListener() {
-    curtainWrapper.addEventListener('mousemove', moveCurtain);
+function onMouseDown() {
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', onMouseUp);
 }
 
-function removeListener() {
-    curtainWrapper.removeEventListener('mousemove', moveCurtain);
-
+function onMouseUp() {
+    document.removeEventListener('mousemove', onDrag);
+    
 }
-function moveCurtain(e) {
+function onDrag(e) {
     let curtainWidth = curtain.getBoundingClientRect().width;
     let wrapperLeft = curtainWrapper.getBoundingClientRect().left;
- 
+    
     rightBorder = bottomImg.getBoundingClientRect().right;
     leftBorder = bottomImg.getBoundingClientRect().left;
     curtain.style.removeProperty('transform');
-
+    
     if ((e.clientX >= leftBorder) && (e.clientX <= rightBorder)) {
         curtain.style.left = `${e.clientX - curtainWidth/2 - wrapperLeft}px`;
         topImg.style.width = `${e.clientX -leftBorder}px`;
-
-    }
-
-    curtainWrapper.addEventListener('mouseup', removeListener);
-    
+        
+    }    
 }
 
 createCurtain();

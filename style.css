@@ -140,10 +140,10 @@ button:active {
 
 .imgCurtain img {
     pointer-events: none;
-    user-select: none;
 }
 
 .wrapper {
+    user-select: none;
     display: flex;
     position: relative;
     width: 730px;
